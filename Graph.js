@@ -23,7 +23,7 @@ class Graph {
   printGraph() {
     // get all the vertices
     var get_keys = this.AdjList.keys();
-
+    var output = "Graph output: <br />";
     // iterate over the vertices
     for (var i of get_keys) {
       // great the corresponding adjacency list
@@ -36,13 +36,16 @@ class Graph {
       for (var j of get_values) conc += j + " ";
 
       // print the vertex and its adjacency list
+      output = output + i + " -> " + conc + "<br />";
       console.log(i + " -> " + conc);
     }
+    document.getElementById("GraphOutput").innerHTML = output;
   }
 
   bfs(startingNode) {
     // create a visited array
     var visited = [];
+    var output = "BFS output: <br />";
     for (var i = 0; i < this.noOfVertices; i++) visited[i] = false;
 
     // Create an object for queue
@@ -59,7 +62,7 @@ class Graph {
 
       // passing the current vertex to callback funtion
       console.log(getQueueElement);
-
+      output = output + getQueueElement + "<br />";
       // get the adjacent list for current vertex
       var get_List = this.AdjList.get(getQueueElement);
 
@@ -73,12 +76,14 @@ class Graph {
           q.enqueue(neigh);
         }
       }
+      document.getElementById("BFSOutput").innerHTML = output;
     }
   }
 
   dfs(startingNode) {
     var visited = [];
     for (var i = 0; i < this.noOfVertices; i++) visited[i] = false;
+    document.getElementById("DFSOutput").innerHTML = "DFS Output: <br />";
     this.DFSUtil(startingNode, visited);
   }
 
@@ -86,6 +91,8 @@ class Graph {
   // all the adjacent vertex of the vertex with which it is called
   DFSUtil(vert, visited) {
     visited[vert] = true;
+    document.getElementById("DFSOutput").innerHTML =
+      document.getElementById("DFSOutput").innerHTML + vert + "<br />";
     console.log(vert);
 
     var get_neighbours = this.AdjList.get(vert);
